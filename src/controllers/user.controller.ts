@@ -13,12 +13,19 @@ export const getAllUserHandler = async (req: Request, res: Response, next: NextF
 }
 
 export const createUserHandler = async (req: Request<{},{}, CreateUserInput["body"]>, res: Response, next: NextFunction) => {
-    console.log(req.body);
     try {  
         const user = await createUser(req.body);
         if(!user) res.sendStatus(409).send("Error create user");
         res.send(user);
     } catch (error:any) {
         res.sendStatus(409).send(error.message);
+    }
+}
+
+export const getUserHandler =async (req: Request, res:Response, next: NextFunction) => {
+    try {
+        
+    } catch (error) {
+        res.sendStatus(409);
     }
 }

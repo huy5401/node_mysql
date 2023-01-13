@@ -1,4 +1,5 @@
 import express, {Router, Request, Response} from 'express';
+import { isAuth, login } from '../controllers/auth.controller';
 import { createSessionHandler } from '../controllers/session.controller';
 import { createUserHandler, getAllUserHandler } from '../controllers/user.controller';
 import validateResource from '../middleware/validateResource';
@@ -11,7 +12,8 @@ router.get('/', (req: Request, res:Response) => {
 router.get('/about' , (req:Request, res: Response) => {
     res.send('about');
 })
-router.get('/users', getAllUserHandler);
+router.get('/user', isAuth, getAllUserHandler);
 router.post('/users/create', validateResource(createUserSchema), createUserHandler)
-router.post('/users/session', createSessionHandler)
+router.post('/users/session',createSessionHandler)
+router.post('/login', login);
 export default router

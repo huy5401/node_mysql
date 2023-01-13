@@ -1,5 +1,5 @@
 import { omit } from "lodash";
-import User from "../models/user.model";
+import User, { UserAttributes } from "../models/user.model";
 import { UserInput } from "../models/user.model";
 
 
@@ -13,15 +13,10 @@ export const getAllUser = async () => {
     }
 }
 
-export const createUser = (input: Omit<UserInput, "passwordConfirmation">) => {
+export const createUser = async (input: Omit<UserInput, "passwordConfirmation">) => {
     try {
-        return User.create(input).then((user) => {
-            return user;
-        }).catch(() => {
-            return false;
-        }
-
-        );
+        const user = await User.create(input);
+        return user;
     } catch (e: any) {
         throw new Error(e);
     }

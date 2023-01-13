@@ -1,10 +1,8 @@
 import { DataTypes, Sequelize, Optional} from 'sequelize'
 import db from '../config/db/database'
-import { UserAttributes } from './user.model';
 
 
 export interface SessionAttributes {
-    user : UserAttributes["id"];
     valid: boolean;
     userAgent: string;
     createdAt: Date;

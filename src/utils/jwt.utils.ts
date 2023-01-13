@@ -11,9 +11,9 @@ export function signJwt(object: Object, options?: jwt.SignOptions | undefined) {
 }
 
 export function verifyJwt(token:string){
-    const public_key = String(process.env.PUBLIC_KEY);
+    //const public_key = String(process.env.PUBLIC_KEY);
     try {
-        const decoded = jwt.verify(token, public_key);
+        const decoded = jwt.verify(token, 'secret-key');
         return {
             valid: true,
             expired:false,

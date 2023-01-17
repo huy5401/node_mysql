@@ -1,6 +1,6 @@
 import  {Request, Response, NextFunction} from 'express'
 import { CreateUserInput } from '../schemas/user.schema';
-import { getAllUser, createUser } from '../services/user.service';
+import { getAllUser, createUser, getUser } from '../services/user.service';
 
 export const getAllUserHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -22,10 +22,13 @@ export const createUserHandler = async (req: Request<{},{}, CreateUserInput["bod
     }
 }
 
-export const getUserHandler =async (req: Request, res:Response, next: NextFunction) => {
+export const getUserHandler = async (req: Request, res:Response, next: NextFunction) => {
     try {
-        
+        const user = await getUser(res.locals.user["id"]);
+        console.log("user: ",user);
+        if(!user) return res.send(500).send("khong tim thay user");
+        res.send(user);
     } catch (error) {
-        res.sendStatus(409);
+        res.sendStatus(409).send(error);
     }
 }

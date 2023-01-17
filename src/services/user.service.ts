@@ -30,3 +30,8 @@ export async function validatePassword({ username, password }: {
         return user ? omit(user.toJSON(), "password") : false;
     });
 }
+
+export const getUser = async (userId: string) => {
+    const user = User.findOne({where: {id : userId}});
+    return user;
+}
